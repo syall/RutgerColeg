@@ -131,23 +131,59 @@ public class Frame extends ArrayList<Frame> {
     
   }
   
-  public boolean overlaps(Frame frame) {
-    
-    PMatrix2D matrix = absolute_coords.get();
-    matrix.invert();
-    
-    float[] mouse = new float[]{mouseX,mouseY};
-    matrix.mult(mouse,mouse);
-    
-    mouse_x = mouse[0];
-    mouse_y = mouse[1];
-    
-    if(mouse_x>=0 && mouse_x<absolute_w &&
-       mouse_y>=0 && mouse_y<absolute_h) {
-      return true;
+  public Ray.IntersectionInfo overlaps(Frame frame) {
+    if(absolute_coords!=null) {
+      
+      float[][] vert0 = new float[][]{
+          new float[]{0,0},
+          new float[]{absolute_w,0},
+          new float[]{absolute_w,absolute_h},
+          new float[]{0,absolute_h}};
+      for(int i=0;i<vert0.length;i++) {
+        absolute_coords.mult(vert0[i],vert0[i]);
+      }
+      
+      float[][] vert1 = new float[][]{
+          new float[]{0,0},
+          new float[]{frame.absolute_w,0},
+          new float[]{frame.absolute_w,frame.absolute_h},
+          new float[]{0,frame.absolute_h}};
+      for(int i=0;i<vert1.length;i++) {
+        frame.absolute_coords.mult(vert1[i],vert1[i]);
+      }
+      
+      Ray.IntersectionInfo info = null;
+      
+      Ray ray = new Ray();
+      for(int i=0;i<vert0.length;i++) {
+        
+        float[] va0 = vert0[i];
+        float[] vb0 = vert0[(i+1)%vert0.length];
+        
+        ray.x = va0[0];
+        ray.y = va0[1];
+        ray.dx = vb0[0]-ray.x;
+        ray.dy = vb0[1]-ray.y;
+        
+        for(int j=0;j<vert1.length;j++) {
+          float[] va1 = vert1[j];
+          float[] vb1 = vert1[(j+1)%vert1.length];
+          
+          Ray.IntersectionInfo hit = ray.findIntersection(va1,vb1);
+          if(hit!=null && hit.t0>=0 && hit.t0<=1) {
+            if(info==null || (min(info.t1,1-info.t1)>min(hit.t1,1-hit.t1))) {
+              info = hit;
+              info.element = new int[]{j};
+            }
+          }
+          
+        }
+        
+      }
+      
+      return info;
     }
-    
-    return false;   
+    return null;
   }
   
   public void setTexture(Texture value) {
@@ -176,7 +212,8 @@ public class Frame extends ArrayList<Frame> {
     
     draw(0,0,absolute_w,absolute_h);
     
-    absolute_coords = (PMatrix2D)getMatrix().get();
+    absolute_coords = ((PMatrix2D)getMatrix()).get();
+    
     if(mouse_sensitive) {
       updateMouseStats();
     }

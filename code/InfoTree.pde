@@ -50,7 +50,10 @@ class InfoTree {
       if(size()>0) {
         str.append(" {\n");
         for(Node node : this) {
-          str.append(node.toString());
+        for(String line : node.toString().split("\n")) {
+          str.append("\t"+line);
+          str.append("\n");
+        }
         }
         str.append("}");
       } else if(getText()!=null) {
@@ -117,11 +120,41 @@ class InfoTree {
             last.setParent(node);
           }
           node = node.getParent();
+        } else if(c=='\n') {
+          if(!name.toString().trim().isEmpty()) {
+            Node next = new Node();
+            next.setName(name.toString().trim());
+            name.setLength(0);
+            next.setParent(node);
+          }
         } else {
           name.append(c);
         }
       }
       
+    }
+    
+    for(Node child : getDescendants()) {
+      String name = child.getName();
+      if(name!=null) {
+        if(name.indexOf(" ")!=-1 || name.indexOf(",")!=-1) {
+          int space = name.indexOf(" ");
+          String real_name = null;
+          String properties = null;
+          if(space!=-1) {
+            real_name = name.substring(0,space);
+            properties = name.substring(space+1);
+          } else {
+            properties = name;
+          }
+          child.setName(real_name);
+          String[] data = properties.split(",");
+          for(int i=0;i<data.length;i++) {
+            data[i] = data[i].trim();
+          }
+          child.setText(data);
+        }
+      }
     }
     
   }
