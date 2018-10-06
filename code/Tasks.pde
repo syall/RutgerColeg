@@ -134,7 +134,7 @@ public static class Tasks {
     }
     
   }
-  
+  /*
   private static final HashMap<String,ArrayList<Runnable>> tasks = new HashMap<String,ArrayList<Runnable>>();
   
   public static void handle() {
@@ -176,6 +176,34 @@ public static class Tasks {
     if(tl!=null) {
       tl.clear();
     }
+  }
+  
+  public static void clear() {
+    tasks.clear();
+  }
+  */
+  private static final ArrayList<Runnable> tasks = new ArrayList<Runnable>();
+  
+  public static void handle() {
+    for(int i=tasks.size()-1;i>=0;i--) {
+    if(tasks.size()>i) {
+      tasks.get(i).run();
+    }
+    }
+  }
+  
+  public static void add(Runnable task) {
+    if(!tasks.contains(task)) {
+      if(task instanceof Screen) {
+        ((Screen)task).base.clear();
+        ((Screen)task).init();
+      }
+      tasks.add(task);
+    }
+  }
+  
+  public static void remove(Runnable task) {
+    tasks.remove(task);
   }
   
   public static void clear() {

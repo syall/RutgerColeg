@@ -14,6 +14,7 @@ class Entity extends Frame {
   
   public Entity(String path) {
     super();
+    getOffset()[3] = -1;
   }
   
   public void move() {
@@ -33,7 +34,7 @@ class Entity extends Frame {
       collide(platform);
     }
     
-    if(pos[1]!=(pos[1]=min(pos[1],800))) {
+    if(pos[1]!=(pos[1]=min(pos[1],ground))) {
       vy = 0;
       onground = true;
     }
@@ -42,10 +43,16 @@ class Entity extends Frame {
   
   public void collide(Frame frame) {
     
+    if(frame instanceof Map.Platform) {
+      if(!((Map.Platform)frame).collides) {
+        return;
+      }
+    }
+    
     Ray.IntersectionInfo info = overlaps(frame);
     if(info!=null && info.element!=null) {
       switch(info.element[0]) {
-        case 0: vy=min(0,vy); pos[1]=frame.absolute_y-150; vy=0; onground=true; break;
+        case 0: vy=min(0,vy); pos[1]=frame.absolute_y-100; vy=0; onground=true; break;
         //case 1: vx=max(0,vx); pos[0]+=5; break;
         //case 2: vy=max(0,vy); pos[1]+=5; break;
         //case 3: vx=min(0,vx); pos[0]-=5; break;

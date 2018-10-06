@@ -1,11 +1,11 @@
 
 void loadTitleScreen() {
   
-  
   title_screen = new Screen(){
+    
     public void init() {
       
-      bgm = minim.loadFile("sound/on the banks of the old raritan loud.mp3",4096);
+      bgm = minim.loadFile("sound/on the banks of the old raritan.mp3",4096);
       bgm.play();
       
       final Frame bg = new Frame();
@@ -68,9 +68,9 @@ void loadTitleScreen() {
       {
         PFont font = createFont("comic sans ms",24);
         final String[] labels = new String[]{
-            "top text",
-            "sample text",
-            "bottom text"};
+            "START",
+            "CONTINUE?",
+            "SETTINGS"};
         final Frame[] buttons = new Frame[3];
         for(int i=0;i<buttons.length;i++) {
           final int index = i;
@@ -85,7 +85,7 @@ void loadTitleScreen() {
                       println("play the game");
                       
                       Tasks.remove(title_screen);
-                      Tasks.add(gameplay);
+                      Tasks.add(char_custom);
                       
                     break;
                     case 1:
@@ -94,7 +94,10 @@ void loadTitleScreen() {
                     case 2:
                       println("settings");
                       
-                      Tasks.add(new FloatMover(0,-1,.05){
+                      Tasks.add(new FloatMover(0,-1,.1){
+                        public void init() {
+                          setType(LINEAR);
+                        }
                         public void apply() {
                           overlay.getPosition()[2] = get();
                         }

@@ -10,6 +10,8 @@ public class Map extends Frame {
     public static final int FALLING = 3;
     public static final int SWIMMABLE = 4;
     
+    public boolean collides;
+    
     public Platform(InfoTree tree, InfoTree.Node node) {
       
       for(InfoTree.Node child : node) {
@@ -38,6 +40,9 @@ public class Map extends Frame {
             case "texture":
               setTexture(new Texture(sketchPath()+"/data/"+tree.get("texture."+child.getText()[0]).getText()[0]));
             break;
+            case "collision":
+              collides = parseInt(child.getText()[0])!=0;
+            break;
           }
         }
         if(child.size()>0) {
@@ -62,9 +67,9 @@ public class Map extends Frame {
     
     for(InfoTree.Node node : info.get("background")) {
       Frame bg = new Frame();
-      bg.getSize()[2] = 1;
-      bg.getSize()[3] = 1;
       bg.setTexture(new Texture(sketchPath()+"/data/"+info.get("texture."+node.getText()[1]).getText()[0]));
+      bg.getSize()[0] = bg.texture.get().width;
+      bg.getSize()[1] = bg.texture.get().height;
       add(bg);
       backgrounds.add(bg);
     }
@@ -93,11 +98,11 @@ public class Map extends Frame {
     });
     */
     Tasks.add(new Runnable(){public void run(){
-      overlay.getPosition()[0] += (-entities.get(0).getPosition()[0]+width/2-overlay.getPosition()[0])*.2;
-      overlay.getPosition()[1] += (-entities.get(0).getPosition()[1]+height/2-overlay.getPosition()[1])*.2;
+      overlay.getPosition()[0] += (min(0,-entities.get(0).getPosition()[0]+width/2)-overlay.getPosition()[0])*.2;
+      overlay.getPosition()[1] += (min(0,-entities.get(0).getPosition()[1]+height/2)-overlay.getPosition()[1])*.2;
       for(Frame frame : backgrounds) {
-        frame.getPosition()[0] = overlay.getPosition()[0]*.1;
-        frame.getPosition()[1] = overlay.getPosition()[1]*.1;
+        frame.getPosition()[0] = overlay.getPosition()[0]*1;
+        frame.getPosition()[1] = overlay.getPosition()[1]*1+150;
       }       
     }});
     add(overlay);

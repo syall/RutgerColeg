@@ -20,15 +20,20 @@ void loadGameplay() {
         public void draw(float x, float y, float w, float h) {
           super.draw(x,y,w,h);
           float walk_speed = 5;
-          if(key_input['w'-32]) { if(pos[1]>=800) {vy-=20;}; }
+          if(key_input['w'-32]) { if(onground) { vy-=20; } }
           if(key_input['s'-32]) { vy+=walk_speed; }
           if(key_input['d'-32]) { if(onground) vx+=walk_speed; }
           if(key_input['a'-32]) { if(onground) vx-=walk_speed; }
           move();
           collide(map);
+          if(pos[0]>5000) {
+            Tasks.remove(gameplay);
+            Tasks.add(tuition);
+          }
         }
       };
       player.drag = .01;
+      player.friction = .5;
       player.ay = 1;
       player.getSize()[0] = 50;
       player.getSize()[1] = 50;

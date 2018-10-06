@@ -3,6 +3,8 @@ import ddf.minim.*;
 public boolean pmousePressed;
 public boolean[] key_input = new boolean[256];
 
+public float ground = 970;
+
 public boolean mousePressing() {
   return mousePressed && !pmousePressed;
 }
@@ -14,6 +16,7 @@ public boolean mouseReleasing() {
 public Screen title_screen;
 public Screen char_custom;
 public Screen gameplay;
+public Screen tuition;
 public Screen credits;
 
 public Minim minim;
@@ -32,11 +35,8 @@ void setup() {
   loadTitleScreen();
   loadCharacterCustomization();
   loadGameplay();
-  credits = new Screen(){
-    public void init() {
-      
-    }
-  };
+  loadTuition();
+  loadCredits();
 
   Tasks.add(title_screen);
 }
@@ -50,7 +50,6 @@ void keyReleased() {
 }
 
 void draw() {
-  
   Tasks.handle();
   pmousePressed = mousePressed;
 }

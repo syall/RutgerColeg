@@ -50,6 +50,8 @@ public abstract class FloatMover implements Runnable {
   
   public abstract void apply();
   
+  public void onFinish() {}
+  
   public void run() {
     
     time += rate;
@@ -80,6 +82,7 @@ public abstract class FloatMover implements Runnable {
     }
     
     if(finished) {
+      onFinish();
       value = end;
       Tasks.remove(this);
     }
