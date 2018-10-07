@@ -55,7 +55,7 @@ void loadCharacterCustomization() {
         frame.getPosition()[3] = .5;
         frame.getOffset()[2] = -.5;
         frame.getOffset()[3] = -.5;
-        frame.setTexture(new Texture("art/def.png"));
+        frame.setTexture(new Texture("art/background/hc.jpg"));
         {
           Frame next = new Frame(){
             public void draw(float x, float y, float w, float h) {
@@ -82,13 +82,21 @@ void loadCharacterCustomization() {
           next.getOffset()[2] = -1;
           next.getOffset()[3] = -1;
           next.setTexture(new Texture("art/def.png"));
+          next.setTextColor(color(0));
+          next.setTextFont(createFont("cambria",24));
+          next.setTextAlign(CENTER,CENTER);
+          next.setText("-->");
           frame.add(next);
         }
       }
       
       final Frame stats = new Frame();
-      stats.getSize()[2] = .6;
-      stats.getSize()[3] = 1;
+      stats.getSize()[0] = 351;
+      stats.getSize()[1] = 424;
+      stats.getPosition()[3] = .5;
+      stats.getOffset()[3] = -.5;
+      stats.getPosition()[2] = .5;
+      stats.getOffset()[2] = -.5;
       stats.setTexture(new Texture("art/background/stats.png"));
       stat_chooser.add(stats);
       
@@ -106,6 +114,12 @@ void loadCharacterCustomization() {
           "art/model/pants.anim",
           "art/model/shirts.anim",
           "art/model/hair.anim"};
+      final String[] identify = new String[]{
+          "body",
+          "footwear",
+          "pant",
+          "shirt",
+          "hair"};
       //PGraphics canvas = createGraphics(476,670,JAVA2D);
       
       ArrayList<Frame> character = new ArrayList<Frame>();
@@ -145,12 +159,16 @@ void loadCharacterCustomization() {
           }
         };
         switcher.setMouseSensitive(true);
-        switcher.getSize()[0] = 50;
-        switcher.getSize()[1] = 20;
+        switcher.getSize()[0] = 70;
+        switcher.getSize()[1] = 40;
         switcher.getPosition()[0] = 100;
         switcher.getPosition()[1] = -100*i-100;
         switcher.getPosition()[2] = 1;
         switcher.getPosition()[3] = 1;
+        switcher.setTextAlign(LEFT,CENTER);
+        switcher.setTextColor(color(0));
+        switcher.setTextFont(createFont("comic sans ms",16));
+        switcher.setText(identify[i]);
         switcher.setTexture(new Texture("art/def.png"));
         look_frame.add(switcher);
       }
@@ -160,11 +178,20 @@ void loadCharacterCustomization() {
       final String[] lines = FileIO.read(sketchPath()+"/data/majors.txt").split("\n");
       final int line_count = 15;
       final int[] line_scroll = new int[1];
+      final Frame[] major_list = new Frame[1];
       final Frame major_list_dropdown = new Frame(){
         public void draw(float x, float y, float w, float h) {
           super.draw(x,y,w,h);
           if(mouseHovering()) {
             line_scroll[0] += scroll;
+            if(mousePressing()) {
+              int index = (int)((mouseY-absolute_y-100)/20)+line_scroll[0];
+              if(index>=0 && index<lines.length) {
+                major_list[0].setText(lines[index]);
+              } else {
+                major_list[0].setText("ur mum lmao");
+              }
+            }
           }
           if(visible) {
             line_scroll[0] = max(0,min(line_scroll[0],lines.length-line_count));
@@ -180,8 +207,8 @@ void loadCharacterCustomization() {
       major_list_dropdown.getSize()[2] = 1;
       major_list_dropdown.getSize()[3] = 15;
       major_list_dropdown.getPosition()[3] = 1;
-      major_list_dropdown.setTexture(new Texture("art/def.png"));
-      final Frame major_list = new Frame(){
+      major_list_dropdown.setTexture(new Texture("art/white.png"));
+      major_list[0] = new Frame(){
         
         public void draw(float x, float y, float w, float h) {
           super.draw(x,y,w,h);
@@ -191,21 +218,165 @@ void loadCharacterCustomization() {
         }
         
       };
-      major_list.setTexture(new Texture("art/def.png"));
+      major_list[0].setTexture(new Texture("art/white.png"));
       major_list_dropdown.visible = false;
-      major_list.setTextColor(color(0));
-      major_list.setTextAlign(LEFT,CENTER);
-      major_list.setTextFont(createFont("courier new bold",12));
-      major_list.setText(lines[0]);
-      major_list.add(major_list_dropdown);
-      major_list.setMouseSensitive(true);
-      major_list.getSize()[0] = 400;
-      major_list.getSize()[1] = 20;
-      major_list.getPosition()[2] = .5;
-      major_list.getPosition()[3] = .5;
-      major_list.getOffset()[2] = -.5;
-      major_list.getOffset()[3] = -.5;
-      major_chooser.add(major_list);
+      major_list[0].setTextColor(color(0));
+      major_list[0].setTextAlign(LEFT,CENTER);
+      major_list[0].setTextFont(createFont("courier new bold",12));
+      major_list[0].setText(lines[0]);
+      major_list[0].add(major_list_dropdown);
+      major_list[0].setMouseSensitive(true);
+      major_list[0].getSize()[0] = 400;
+      major_list[0].getSize()[1] = 20;
+      major_list[0].getPosition()[2] = .5;
+      major_list[0].getPosition()[3] = .5;
+      major_list[0].getOffset()[2] = -.5;
+      major_list[0].getOffset()[3] = -.5;
+      major_chooser.add(major_list[0]);
+      
+      final Frame name_label = new Frame();
+      name_label.getSize()[0] = 400;
+      name_label.getSize()[1] = 50;
+      name_label.getPosition()[2] = .5;
+      name_label.getPosition()[3] = .5;
+      name_label.getOffset()[2] = -.5;
+      name_label.getOffset()[3] = -.5;
+      name_label.setTexture(new Texture("art/white.png"));
+      name_label.setTextAlign(LEFT,CENTER);
+      name_label.setTextColor(color(0));
+      name_label.setTextFont(createFont("comic sans ms",20));
+      name_label.setText("");
+      name_chooser.add(name_label);
+      
+      final Frame name_asker = new Frame();
+      name_asker.getSize()[0] = 700;
+      name_asker.getSize()[1] = 30;
+      name_asker.getPosition()[1] = -300;
+      name_asker.getPosition()[2] = .5;
+      name_asker.getPosition()[3] = .5;
+      name_asker.getOffset()[2] = -.5;
+      name_asker.getOffset()[3] = -.5;
+      name_asker.setTexture(new Texture("art/white.png"));
+      name_asker.setTextAlign(LEFT,CENTER);
+      name_asker.setTextColor(color(0));
+      name_asker.setTextFont(createFont("comic sans ms",20));
+      name_asker.setText("plz type ur name haha gottem");
+      name_chooser.add(name_asker);
+      
+      final Frame major_asker = new Frame();
+      major_asker.getSize()[0] = 700;
+      major_asker.getSize()[1] = 30;
+      major_asker.getPosition()[1] = -300;
+      major_asker.getPosition()[2] = .5;
+      major_asker.getPosition()[3] = .5;
+      major_asker.getOffset()[2] = -.5;
+      major_asker.getOffset()[3] = -.5;
+      major_asker.setTexture(new Texture("art/white.png"));
+      major_asker.setTextAlign(LEFT,CENTER);
+      major_asker.setTextColor(color(0));
+      major_asker.setTextFont(createFont("comic sans ms",20));
+      major_asker.setText("plz choose ur major haha gottem");
+      major_chooser.add(major_asker);
+      
+      char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+      for(int i=0;i<alphabet.length;i++) {
+        final char c = alphabet[i];
+        int x = i%10;
+        int y = i/10;
+        final Frame letter = new Frame(){
+          public void draw(float x, float y, float w, float h) {
+            super.draw(x,y,w,h);
+            if(mousePressing() && mouseHovering()) {
+              name_label.setText(name_label.text+c);
+              global_resources.put("name",name_label.text);
+            }
+          }
+        };
+        letter.setMouseSensitive(true);
+        letter.getSize()[0] = 30;
+        letter.getSize()[1] = 30;
+        letter.getPosition()[0] = -300+x*30;
+        letter.getPosition()[1] = -200+y*30;
+        letter.getPosition()[2] = .5;
+        letter.getPosition()[3] = .5;
+        letter.setTexture(new Texture("art/def.png"));
+        letter.setTextAlign(CENTER,CENTER);
+        letter.setTextColor(color(0));
+        letter.setTextFont(createFont("comic sans ms",14));
+        letter.setText(c+"");
+        name_chooser.add(letter);
+      }
+      
+      final int[] points_left = new int[]{50};
+      final Frame point_left_counter = new Frame();
+      point_left_counter.getPosition()[0] = 200;
+      point_left_counter.getPosition()[1] = 40;
+      point_left_counter.setTextAlign(LEFT,TOP);
+      point_left_counter.setTextColor(color(0));
+      point_left_counter.setTextFont(createFont("courier new bold",12));
+      point_left_counter.setText("points left: 50");
+      stats.add(point_left_counter);
+      for(int i=0;i<2;i++) {
+      for(int j=0;j<5;j++) {
+        final int[] value = new int[1];
+        final Frame stat = new Frame();
+        stat.getPosition()[0] = 44+i*144;
+        stat.getPosition()[1] = 106+j*52;
+        stat.getSize()[0] = 23;
+        stat.getSize()[1] = 23;
+        stat.setTextAlign(LEFT,CENTER);
+        stat.setTextColor(color(0));
+        stat.setTextFont(createFont("papyrus",12));
+        stat.setText("0");
+        stats.add(stat);
+        final Frame add = new Frame(){
+          public void draw(float x, float y, float w, float h) {
+            super.draw(x,y,w,h);
+            if(mousePressing() && mouseHovering()) {
+              if(points_left[0]>0) {
+                points_left[0]--;
+                value[0]++;
+                stat.setText(value[0]+"");
+                point_left_counter.setText("points left: "+points_left[0]);
+              }
+            }
+          }
+        };
+        add.setMouseSensitive(true);
+        add.getPosition()[0] = 100+i*144;
+        add.getPosition()[1] = 106+j*52;
+        add.getSize()[0] = 23;
+        add.getSize()[1] = 11;
+        add.setTextAlign(LEFT,CENTER);
+        add.setTextColor(color(0));
+        add.setTextFont(createFont("papyrus",12));
+        add.setText("+");
+        stats.add(add);
+        final Frame sub = new Frame(){
+          public void draw(float x, float y, float w, float h) {
+            super.draw(x,y,w,h);
+            if(mousePressing() && mouseHovering()) {
+              if(points_left[0]<50 && value[0]>0) {
+                points_left[0]++;
+                value[0]--;
+                stat.setText(value[0]+"");
+                point_left_counter.setText("points left: "+points_left[0]);
+              }
+            }
+          }
+        };
+        sub.setMouseSensitive(true);
+        sub.getPosition()[0] = 100+i*144;
+        sub.getPosition()[1] = 117+j*52;
+        sub.getSize()[0] = 23;
+        sub.getSize()[1] = 11;
+        sub.setTextAlign(LEFT,CENTER);
+        sub.setTextColor(color(0));
+        sub.setTextFont(createFont("papyrus",12));
+        sub.setText("-");
+        stats.add(sub);
+      }
+      }
       
       overlay.add(choosers[0]);
     }

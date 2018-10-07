@@ -26,6 +26,8 @@ public class Frame extends ArrayList<Frame> {
   protected float absolute_w;
   protected float absolute_h;
   
+  protected boolean flipped;
+  
   protected Texture texture;
   
   public float[] getPosition() {
@@ -212,6 +214,9 @@ public class Frame extends ArrayList<Frame> {
         pivot_x+offset_x+absolute_x,
         pivot_y+offset_y+absolute_y);
     rotate(angle[0]);
+    if(flipped) {
+      scale(-1,1);
+    }
     translate(-pivot_x,-pivot_y);
     
     draw(0,0,absolute_w,absolute_h);

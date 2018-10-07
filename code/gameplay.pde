@@ -26,7 +26,8 @@ void loadGameplay() {
           if(key_input['w'-32]) { walking=true; if(onground) { vy-=30; playSFX("sound/fx/Boing-sound.mp3"); } }
           if(key_input['s'-32]) { walking=true; vy+=walk_speed; }
           if(key_input['d'-32]) { walking=true; if(onground) vx+=walk_speed; }
-          if(key_input['a'-32]) { walking=true; if(onground) vx-=walk_speed; }
+          if(key_input['a'-32]) { walking=true; if(onground) vx-=walk_speed; player.flipped=true; } else {
+            player.flipped = false; }
           if(walking) {
             walking_frame.visible = true;
             idle.visible = false;
@@ -50,8 +51,9 @@ void loadGameplay() {
       walking_frame.getSize()[2] = 2;
       walking_frame.getSize()[3] = 2;
       walking_frame.getPosition()[0] = -80;
+      walking_frame.getPosition()[1] = -70;
       player.add(walking_frame);
-      Texture walking = new Texture("art/model/walkinganim/walking.anim");
+      Texture walking = new Texture("art/model/pig/walking.anim");
       walking.looped = true;
       walking.speed = .25;
       Tasks.add(walking);
@@ -76,6 +78,17 @@ void loadGameplay() {
       person.getSize()[1] = 90;
       person.addAll(character);
       idcard.add(person);
+      final Frame name = new Frame();
+      name.getPosition()[0] = 80;
+      name.getPosition()[1] = 55;
+      name.setTextAlign(LEFT,TOP);
+      name.setTextFont(createFont("courier new bold",12));
+      name.setTextColor(color(0));
+      Object nemr = global_resources.get("name");
+      if(nemr!=null) {
+        name.setText((String)nemr);
+      }
+      idcard.add(name);
       map.add(idcard);
     }
     

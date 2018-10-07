@@ -33,6 +33,48 @@ void loadTitleScreen() {
       setting_screen.getOffset()[2] = -.5;
       setting_screen.getOffset()[3] = -.5;
       setting_screen.setTexture(new Texture("art/def.png"));
+      final Frame slider = new Frame();
+      slider.getSize()[0] = 100;
+      slider.getSize()[1] = 10;
+      slider.getPosition()[2] = .5;
+      slider.getPosition()[3] = .5;
+      slider.getOffset()[2] = -.5;
+      slider.getOffset()[3] = -.5;
+      slider.setTexture(new Texture("art/black.png"));
+      setting_screen.add(slider);
+      
+      final Frame slider_button = new Frame(){
+        public boolean trolld;
+        public boolean selected;
+        public void draw(float x, float y, float w, float h) {
+          super.draw(x,y,w,h);
+          if(trolld) {
+            if(!selected) {
+              if(mousePressing() && mouseHovering()) {
+                selected = true;
+              }
+            }
+            if(mouseReleasing()) {
+              selected = false;
+            }
+            if(selected) {
+              getPosition()[0] = mouseX-slider.absolute_x+15;
+            }
+          } else {
+            if(mousePressing() && mouseHovering()) {
+              getPosition()[0] = 90;
+              trolld = true;
+            }
+          }
+          bgm.setGain(getPosition()[0]*100);
+        }
+      };
+      slider_button.setMouseSensitive(true);
+      slider_button.getSize()[0] = 10;
+      slider_button.getSize()[1] = 10;
+      slider_button.setTexture(new Texture("art/white.png"));
+      slider.add(slider_button);
+      
       {
         final Frame back = new Frame(){
           public void draw(float x, float y, float w, float h) {

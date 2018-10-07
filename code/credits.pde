@@ -93,9 +93,9 @@ void loadCredits() {
           fill(255,255*(1-tracker[0]));
           for(int i=0;i<l_roll.size();i++) {
             textAlign(LEFT,TOP);
-            text(l_roll.get(i),x+4,y+i*20);
+            text(l_roll.get(i),x+100,y+i*20);
             textAlign(RIGHT,TOP);
-            text(r_roll.get(i),x+w-4,y+i*20);
+            text(r_roll.get(i),x+w-100,y+i*20);
           }
           
         }
@@ -104,6 +104,13 @@ void loadCredits() {
       text_roll.getSize()[3] = 1;
       overlay.add(text_roll);
       
+    }
+    
+    public void run() {
+      super.run();
+      fill(255);
+      textAlign(CENTER,TOP);
+      text("thx 4 playing the demo",width/2,14);
     }
     
   };
