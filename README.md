@@ -34,7 +34,7 @@ To open this in Processing (3.3.7), download the [zip file here](https://github.
 * Play the game!
 
 ## Demo
-[Link to the Youtube video here.](https://www.youtube.com/watch?v=sHJpmG9_UlI&feature=youtu.be)
+[Link to the Youtube video here.](https://www.youtube.com/watch?v=sHJpmG9_UlI&t=10s)
 
 Honestly, it was great to work on something we love and relate to at HackRU F18.  
 We are a team of students from a freshman to two juniors, little to lots of experience, and a whole lot of inspiration from our soon-to-be alma mater.
