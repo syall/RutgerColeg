@@ -104,6 +104,15 @@ void loadTitleScreen() {
       }
       overlay.add(setting_screen);
       
+      final Frame deeprut = new Frame();
+      deeprut.getSize()[0] = 500;
+      deeprut.getSize()[1] = 200;
+      deeprut.getPosition()[1] = 100;
+      deeprut.getPosition()[2] = .5;
+      deeprut.getOffset()[2] = -.5;
+      deeprut.setTexture(new Texture("art/icons/deeprut.png"));
+      overlay.add(deeprut);
+      
       final Frame button_base = new Frame();
       button_base.getSize()[0] = 400;
       button_base.getSize()[1] = 200;

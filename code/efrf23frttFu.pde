@@ -51,8 +51,8 @@ void setup() {
   loadTuition();
   loadCredits();
 
-  //Tasks.add(splash_screen);
-  Tasks.add(title_screen);
+  Tasks.add(splash_screen);
+  //Tasks.add(title_screen);
 }
 
 void keyPressed() {
