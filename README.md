@@ -1,5 +1,6 @@
 # RutgerColeg
-Game full of the RU experience (HackRU Fall 2018)  
+
+![alt text](https://github.com/syall/RutgerColeg/blob/master/art/icons/ruger.png "Ruger") 
 
 ## Story  
 What does it mean to be a Scarlet Knight?  
@@ -26,7 +27,10 @@ Bless Rutger.
 ## Usage
 To open this in Processing (3.3.7), download the [zip file here](https://github.com/syall/RutgerColeg/blob/master/RutgerColeg.zip)  
 * Open the file that starts with an 'e' along with the other files in a new sketch.
-* Download the "minim" library in Processing
+* Import the "minim" library in Processing by:
+  * Import Library...  
+  * Add Library...  
+  * Search "Minim" and Install!  
 * Play the game!
 
 Honestly, it was great to work on something we love and relate to at HackRU F18.  
