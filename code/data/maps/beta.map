@@ -1,0 +1,121 @@
+type {
+	solid 0
+}
+texture {
+	default art/background/dutta.jpg
+	hc art/background/background.jpg
+	yale art/icons/yale.png
+	cornell art/icons/cornell.png
+	harvard art/icons/harvard.png
+	princeton art/icons/princeton-logo.png
+	columbia art/icons/columbia.png
+	reject art/icons/reject.png
+	rutgers art/icons/rutgerscrest.png
+	highschool art/icons/higskol.png
+}
+background {
+	0,hc
+}
+platform {
+	{
+		position 100,700,0,0
+		size 200,100,0,0
+		pivot 0,0,0,0
+		offset 0,0,-.5,-.5
+		texture highschool
+		collision 0
+	}
+	{
+		position 877,751,0,0
+		size 200,100,0,0
+		pivot 0,0,0,0
+		offset 0,0,-.5,-.5
+		texture yale
+		collision 0
+	}
+	{
+		position 1631,779,0,0
+		size 400,100,0,0
+		pivot 0,0,0,0
+		offset 0,0,-.5,-.5
+		texture columbia
+		collision 0
+	}
+	{
+		position 2505,457,0,0
+		size 200,170,0,0
+		pivot 0,0,0,0
+		offset 0,0,-.5,-.5
+		texture princeton
+		collision 0
+	}
+	{
+		position 3297,703,0,0
+		size 200,200,0,0
+		pivot 0,0,0,0
+		offset 0,0,-.5,-.5
+		texture cornell
+		collision 0
+	}
+	{
+		position 4000,681,0,0
+		size 200,200,0,0
+		pivot 0,0,0,0
+		offset 0,0,-.5,-.5
+		texture harvard
+		collision 0
+	}
+	{
+		position 4885,623,0,0
+		size 200,200,0,0
+		pivot 0,0,0,0
+		offset 0,0,-.5,-.5
+		texture rutgers
+		collision 0
+	}
+	{
+		position 895,892,0,0
+		size 200,200,0,0
+		pivot 0,0,0,0
+		offset 0,0,-.5,-.5
+		texture reject
+		collision 0
+		type 4
+	}
+	{
+		position 1610,830,0,0
+		size 200,200,0,0
+		pivot 0,0,0,0
+		offset 0,0,-.5,-.5
+		texture reject
+		collision 0
+		type 4
+	}
+	{
+		position 2626,830,0,0
+		size 200,200,0,0
+		pivot 0,0,0,0
+		offset 0,0,-.5,-.5
+		texture reject
+		collision 0
+		type 4
+	}
+	{
+		position 3321,846,0,0
+		size 200,200,0,0
+		pivot 0,0,0,0
+		offset 0,0,-.5,-.5
+		texture reject
+		collision 0
+		type 4
+	}
+	{
+		position 4000,856,0,0
+		size 200,200,0,0
+		pivot 0,0,0,0
+		offset 0,0,-.5,-.5
+		texture reject
+		collision 0
+		type 4
+	}
+}
