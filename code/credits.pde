@@ -41,7 +41,7 @@ void loadCredits() {
       bgm.pause();
       bgm.close();
       bgm = minim.loadFile("sound/on the banks of the old raritan loud.mp3",4096);
-      bgm.play();
+      bgm.loop();
       
       final Frame overlay = new Frame();
       overlay.getSize()[2] = 1;

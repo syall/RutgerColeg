@@ -10,7 +10,7 @@ void loadTitleScreen() {
         bgm.close();
       }
       bgm = minim.loadFile("sound/on the banks of the old raritan.mp3",4096);
-      bgm.play();
+      bgm.loop();
       
       final Frame bg = new Frame();
       bg.getSize()[2] = 1;

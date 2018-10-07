@@ -64,6 +64,7 @@ class Entity extends Frame {
           if(!bouncer.visible) {
             bouncer.visible = true;
             playSFX("sound/fx/roblox-death-sound_1.mp3");
+            playSFX("sound/fx/bass.mp3");
             vx = -200;
             vy = -10;
             pos[1]--;

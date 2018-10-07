@@ -222,8 +222,10 @@ public class Frame extends ArrayList<Frame> {
       updateMouseStats();
     }
     
-    for(int i=0;i<size();i++) {
-      get(i).handle(0,0,absolute_w,absolute_h);
+    if(visible) {
+      for(int i=0;i<size();i++) {
+        get(i).handle(0,0,absolute_w,absolute_h);
+      }
     }
     
     popMatrix();

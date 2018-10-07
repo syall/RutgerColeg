@@ -3,9 +3,12 @@ void loadCharacterCustomization() {
   
   char_custom = new Screen(){
     
+    public Frame name_chooser;
     public Frame look_chooser;
     public Frame major_chooser;
     public Frame stat_chooser;
+    
+    public AudioPlayer bgm0 = null;
     
     public void init() {
       
@@ -13,8 +16,11 @@ void loadCharacterCustomization() {
         bgm.pause();
         bgm.close();
       }
-      bgm = minim.loadFile("sound/music/alma.mp3");
-      bgm.play();
+      bgm0 = minim.loadFile("sound/music/rutgersFight loud.mp3");
+      bgm = minim.loadFile("sound/music/rutgersFight (1).mp3");
+      bgm0.loop();
+      bgm0.setGain(-1000000);
+      bgm.loop();
       
       base.setTexture(new Texture("art/background/hc.jpg"));
       final Frame overlay = new Frame();
@@ -32,10 +38,11 @@ void loadCharacterCustomization() {
       };
       Tasks.add(overlay_x);
       
+      name_chooser = new Frame();
       look_chooser = new Frame();
       major_chooser = new Frame();
       stat_chooser = new Frame();
-      final Frame[] choosers = new Frame[]{look_chooser,major_chooser,stat_chooser};
+      final Frame[] choosers = new Frame[]{name_chooser,look_chooser,major_chooser,stat_chooser};
       
       for(int i=0;i<choosers.length;i++) {
         final int next_index = (i+1)%choosers.length;
@@ -83,7 +90,7 @@ void loadCharacterCustomization() {
       stats.getSize()[2] = .6;
       stats.getSize()[3] = 1;
       stats.setTexture(new Texture("art/background/stats.png"));
-      choosers[2].add(stats);
+      stat_chooser.add(stats);
       
       final Frame look_frame = new Frame();
       look_frame.getSize()[0] = 476;
@@ -148,7 +155,7 @@ void loadCharacterCustomization() {
         look_frame.add(switcher);
       }
       
-      choosers[0].add(look_frame);
+      look_chooser.add(look_frame);
       
       final String[] lines = FileIO.read(sketchPath()+"/data/majors.txt").split("\n");
       final int line_count = 15;
@@ -198,9 +205,24 @@ void loadCharacterCustomization() {
       major_list.getPosition()[3] = .5;
       major_list.getOffset()[2] = -.5;
       major_list.getOffset()[3] = -.5;
-      choosers[1].add(major_list);
+      major_chooser.add(major_list);
       
       overlay.add(choosers[0]);
+    }
+    
+    public void run() {
+      super.run();
+      if(mousePressing()) {
+        bgm0.setGain(0);
+        bgm.setGain(-1000000);
+        new Thread(new Runnable(){public void run(){
+          try {
+            Thread.sleep(200);
+          } catch(Exception e) {}
+          bgm0.setGain(-100000);
+          bgm.setGain(0);
+        }}).start();
+      }
     }
     
   };
