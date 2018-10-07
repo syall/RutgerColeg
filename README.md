@@ -41,3 +41,5 @@ Thanks again,
 - cc1539
 - hx0rz
 - syall
+
+P.S. - If you want to see our design choices, go to [notes.md](notes.md). You'll see some interesting things there.
