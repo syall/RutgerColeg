@@ -25,8 +25,8 @@ Bless Rutger.
 
 
 ## Usage
-To open this in Processing (3.3.7), download the [zip file here](https://github.com/syall/RutgerColeg/blob/master/RutgerColeg.zip)  
-* Open the file that starts with an 'e' along with the other files in a new sketch.
+To open this in Processing (3.3.7), download the [zip file here](https://github.com/syall/RutgerColeg/archive/master.zip)  
+* Make [code/](https://github.com/syall/RutgerColeg/tree/master/code) a new sketch, open the files inside in the Processing application.
 * Import the "minim" library in Processing by:
   * Import Library...  
   * Add Library...  
