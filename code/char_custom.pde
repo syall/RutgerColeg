@@ -9,8 +9,10 @@ void loadCharacterCustomization() {
     
     public void init() {
       
-      bgm.pause();
-      bgm.close();
+      if(bgm!=null) {
+        bgm.pause();
+        bgm.close();
+      }
       bgm = minim.loadFile("sound/music/alma.mp3");
       bgm.play();
       
@@ -147,6 +149,56 @@ void loadCharacterCustomization() {
       }
       
       choosers[0].add(look_frame);
+      
+      final String[] lines = FileIO.read(sketchPath()+"/data/majors.txt").split("\n");
+      final int line_count = 15;
+      final int[] line_scroll = new int[1];
+      final Frame major_list_dropdown = new Frame(){
+        public void draw(float x, float y, float w, float h) {
+          super.draw(x,y,w,h);
+          if(mouseHovering()) {
+            line_scroll[0] += scroll;
+          }
+          if(visible) {
+            line_scroll[0] = max(0,min(line_scroll[0],lines.length-line_count));
+            for(int i=line_scroll[0];i<line_count+line_scroll[0];i++) {
+              textAlign(LEFT,CENTER);
+              fill(0);
+              text(lines[i],x,y+20*(i-line_scroll[0])+10);
+            }
+          }
+        }
+      };
+      major_list_dropdown.setMouseSensitive(true);
+      major_list_dropdown.getSize()[2] = 1;
+      major_list_dropdown.getSize()[3] = 15;
+      major_list_dropdown.getPosition()[3] = 1;
+      major_list_dropdown.setTexture(new Texture("art/def.png"));
+      final Frame major_list = new Frame(){
+        
+        public void draw(float x, float y, float w, float h) {
+          super.draw(x,y,w,h);
+          if(mousePressing() && mouseHovering()) {
+            major_list_dropdown.visible = !major_list_dropdown.visible;
+          }
+        }
+        
+      };
+      major_list.setTexture(new Texture("art/def.png"));
+      major_list_dropdown.visible = false;
+      major_list.setTextColor(color(0));
+      major_list.setTextAlign(LEFT,CENTER);
+      major_list.setTextFont(createFont("courier new bold",12));
+      major_list.setText(lines[0]);
+      major_list.add(major_list_dropdown);
+      major_list.setMouseSensitive(true);
+      major_list.getSize()[0] = 400;
+      major_list.getSize()[1] = 20;
+      major_list.getPosition()[2] = .5;
+      major_list.getPosition()[3] = .5;
+      major_list.getOffset()[2] = -.5;
+      major_list.getOffset()[3] = -.5;
+      choosers[1].add(major_list);
       
       overlay.add(choosers[0]);
     }

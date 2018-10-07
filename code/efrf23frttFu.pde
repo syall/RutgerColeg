@@ -24,6 +24,15 @@ public Screen credits;
 
 public Minim minim;
 public AudioPlayer bgm;
+public ArrayList<AudioPlayer> sfx = new ArrayList<AudioPlayer>();
+
+public int scroll;
+
+public void playSFX(String path) {
+  AudioPlayer sound = minim.loadFile(path,4096);
+  sound.play();
+  sfx.add(sound);
+}
 
 void setup() {
   
@@ -42,7 +51,8 @@ void setup() {
   loadTuition();
   loadCredits();
 
-  Tasks.add(splash_screen);
+  //Tasks.add(splash_screen);
+  Tasks.add(char_custom);
 }
 
 void keyPressed() {
@@ -53,7 +63,20 @@ void keyReleased() {
   key_input[keyCode] = false;
 }
 
+void mouseWheel(MouseEvent e) {
+  scroll = e.getCount();
+}
+
 void draw() {
+  
   Tasks.handle();
   pmousePressed = mousePressed;
+  
+  for(int i=sfx.size()-1;i>=0;i--) {
+    if(!sfx.get(i).isPlaying()) {
+      sfx.remove(i);
+    }
+  }
+  
+  scroll = 0;
 }

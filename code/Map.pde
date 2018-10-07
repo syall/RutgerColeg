@@ -60,12 +60,6 @@ public class Map extends Frame {
       
     }
     
-    public void draw(float x, float y, float w, float h) {
-      if(visible) {
-        super.draw(x,y,w,h);
-      }
-    }
-    
   }
   
   private ArrayList<Platform> platforms = new ArrayList<Platform>();

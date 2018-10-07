@@ -1,5 +1,5 @@
 
-class Texture {
+class Texture implements Runnable {
 
   private PImage[] frames;
   private float[] delays;
@@ -67,6 +67,10 @@ class Texture {
   
   public Texture getNext() {
     return next;
+  }
+  
+  public void run() {
+    update();
   }
   
 }

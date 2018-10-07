@@ -12,6 +12,15 @@ class Entity extends Frame {
   
   public boolean onground;
   
+  public int state;
+  
+  public void setState(int value) {
+    if(value!=state) {
+      state = value;
+      
+    }
+  }
+  
   public Entity(String path) {
     super();
     getOffset()[3] = -1;
@@ -38,6 +47,9 @@ class Entity extends Frame {
       vy = 0;
       onground = true;
     }
+    if(pos[0]!=(pos[0]=max(pos[0],0))) {
+      vx = 0;
+    }
     
   }
   
@@ -51,7 +63,11 @@ class Entity extends Frame {
         if(bouncer.type==4) {
           if(!bouncer.visible) {
             bouncer.visible = true;
+            playSFX("sound/fx/roblox-death-sound_1.mp3");
             vx = -200;
+            vy = -10;
+            pos[1]--;
+            onground = false;
           }
         }
         
@@ -61,12 +77,14 @@ class Entity extends Frame {
         
       }
       
+      /*
       switch(info.element[0]) {
         case 0: vy=min(0,vy); pos[1]=frame.absolute_y-100; vy=0; onground=true; break;
         //case 1: vx=max(0,vx); pos[0]+=5; break;
         //case 2: vy=max(0,vy); pos[1]+=5; break;
         //case 3: vx=min(0,vx); pos[0]-=5; break;
       }
+      */
     }
     
   }

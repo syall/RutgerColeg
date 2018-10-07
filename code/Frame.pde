@@ -74,22 +74,24 @@ public class Frame extends ArrayList<Frame> {
   }
   
   public void draw(float x, float y, float w, float h) {
-    if(texture!=null) {
-      image(texture.get(),x,y,w,h);
-    }
-    if(text!=null) {
-      textAlign(text_align_x,text_align_y);
-      switch(text_align_x) {
-        case CENTER: x += w/2; break;
-        case RIGHT: x += w; break;
+    if(visible) {
+      if(texture!=null) {
+        image(texture.get(),x,y,w,h);
       }
-      switch(text_align_y) {
-        case CENTER: y += h/2; break;
-        case BOTTOM: y += h; break;
+      if(text!=null) {
+        textAlign(text_align_x,text_align_y);
+        switch(text_align_x) {
+          case CENTER: x += w/2; break;
+          case RIGHT: x += w; break;
+        }
+        switch(text_align_y) {
+          case CENTER: y += h/2; break;
+          case BOTTOM: y += h; break;
+        }
+        fill(text_color);
+        textFont(font);
+        text(text,x,y);
       }
-      fill(text_color);
-      textFont(font);
-      text(text,x,y);
     }
   }
   
