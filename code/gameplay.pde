@@ -20,7 +20,7 @@ void loadGameplay() {
         public void draw(float x, float y, float w, float h) {
           super.draw(x,y,w,h);
           float walk_speed = 5;
-          if(key_input['w'-32]) { if(onground) { vy-=20; } }
+          if(key_input['w'-32]) { if(onground) { vy-=30; } }
           if(key_input['s'-32]) { vy+=walk_speed; }
           if(key_input['d'-32]) { if(onground) vx+=walk_speed; }
           if(key_input['a'-32]) { if(onground) vx-=walk_speed; }
@@ -35,9 +35,11 @@ void loadGameplay() {
       player.drag = .01;
       player.friction = .5;
       player.ay = 1;
-      player.getSize()[0] = 50;
-      player.getSize()[1] = 50;
-      player.setTexture(new Texture("art/background/dutta.jpg"));
+      player.getSize()[0] = 200;
+      player.getSize()[1] = 280;
+      //player.setTexture(new Texture("art/background/dutta.jpg"));
+      ArrayList<Frame> character = (ArrayList<Frame>)global_resources.get("character");
+      player.addAll(character);
       map.addEntity(player);
     }
     

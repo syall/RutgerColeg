@@ -5,6 +5,10 @@ void loadTitleScreen() {
     
     public void init() {
       
+      if(bgm!=null) {
+        bgm.pause();
+        bgm.close();
+      }
       bgm = minim.loadFile("sound/on the banks of the old raritan.mp3",4096);
       bgm.play();
       
@@ -45,8 +49,8 @@ void loadTitleScreen() {
           }
         };
         back.setMouseSensitive(true);
-        back.getSize()[0] = 50;
-        back.getSize()[1] = 20;
+        back.getSize()[0] = 100;
+        back.getSize()[1] = 40;
         back.getPosition()[0] = -10;
         back.getPosition()[1] = -10;
         back.getPosition()[2] = 1;

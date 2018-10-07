@@ -29,24 +29,9 @@ void loadCredits() {
       "professional memer",
       "micheal from vsauce",
       "visionary",
-      "idk lmao",
-      "former child",
-      "producer",
-      "contributor",
-      "backer",
-      "sponsor",
-      "ur mum haha gottem",
-      "biologist",
-      "mathematician",
     };
     
-    public String[] names = new String[]{
-      "christopher cheng",
-      "john fortnite kennedy",
-      "stephen wang",
-      "sam cho",
-      "ivy ???????",
-    };
+    public String[] names = FileIO.read(sketchPath()+"/data/namelist.txt").split("\n");
     
     public ArrayList<String> l_roll = new ArrayList<String>();
     public ArrayList<String> r_roll = new ArrayList<String>();
@@ -78,8 +63,11 @@ void loadCredits() {
       r.getOffset()[3] = -.5;
       r.setTexture(new Texture(sketchPath()+"/data/art/icons/rutgersR.png"));
       overlay.add(r);
+      
+      final float[] tracker = new float[1];
       Tasks.add(new FloatMover(0,1,.001){
         public void apply(){
+          tracker[0] = get();
           r.getSize()[2] = get();
           r.getSize()[3] = get();
           bgm.setGain(10*log(get()));
@@ -102,7 +90,7 @@ void loadCredits() {
             l_roll.remove(0);
             r_roll.remove(0);
           }
-          fill(255);
+          fill(255,255*(1-tracker[0]));
           for(int i=0;i<l_roll.size();i++) {
             textAlign(LEFT,TOP);
             text(l_roll.get(i),x+4,y+i*20);

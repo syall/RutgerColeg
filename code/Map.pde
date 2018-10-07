@@ -43,6 +43,12 @@ public class Map extends Frame {
             case "collision":
               collides = parseInt(child.getText()[0])!=0;
             break;
+            case "type":
+              type = parseInt(child.getText()[0]);
+              if(type==4) {
+                visible = false;
+              }
+            break;
           }
         }
         if(child.size()>0) {
@@ -52,6 +58,12 @@ public class Map extends Frame {
         }
       }
       
+    }
+    
+    public void draw(float x, float y, float w, float h) {
+      if(visible) {
+        super.draw(x,y,w,h);
+      }
     }
     
   }
@@ -99,7 +111,7 @@ public class Map extends Frame {
     */
     Tasks.add(new Runnable(){public void run(){
       overlay.getPosition()[0] += (min(0,-entities.get(0).getPosition()[0]+width/2)-overlay.getPosition()[0])*.2;
-      overlay.getPosition()[1] += (min(0,-entities.get(0).getPosition()[1]+height/2)-overlay.getPosition()[1])*.2;
+      overlay.getPosition()[1] += (min(0,-entities.get(0).getPosition()[1]+height/2+200)-overlay.getPosition()[1])*.2;
       for(Frame frame : backgrounds) {
         frame.getPosition()[0] = overlay.getPosition()[0]*1;
         frame.getPosition()[1] = overlay.getPosition()[1]*1+150;

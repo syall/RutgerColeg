@@ -3,7 +3,7 @@ import ddf.minim.*;
 public boolean pmousePressed;
 public boolean[] key_input = new boolean[256];
 
-public float ground = 970;
+public float ground = 1020;
 
 public boolean mousePressing() {
   return mousePressed && !pmousePressed;
@@ -13,6 +13,9 @@ public boolean mouseReleasing() {
   return !mousePressed && pmousePressed;
 }
 
+public HashMap<String,Object> global_resources = new HashMap<String,Object>();
+
+public Screen splash_screen;
 public Screen title_screen;
 public Screen char_custom;
 public Screen gameplay;
@@ -32,13 +35,14 @@ void setup() {
   surface.setTitle("survie the rutger coleg 1");
   surface.setIcon(createImage(1,1,ARGB));
   
+  loadSplashScreen();
   loadTitleScreen();
   loadCharacterCustomization();
   loadGameplay();
   loadTuition();
   loadCredits();
 
-  Tasks.add(title_screen);
+  Tasks.add(splash_screen);
 }
 
 void keyPressed() {

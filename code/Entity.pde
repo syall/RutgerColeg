@@ -43,14 +43,24 @@ class Entity extends Frame {
   
   public void collide(Frame frame) {
     
-    if(frame instanceof Map.Platform) {
-      if(!((Map.Platform)frame).collides) {
-        return;
-      }
-    }
-    
     Ray.IntersectionInfo info = overlaps(frame);
     if(info!=null && info.element!=null) {
+      if(frame instanceof Map.Platform) {
+        
+        Map.Platform bouncer = ((Map.Platform)frame);
+        if(bouncer.type==4) {
+          if(!bouncer.visible) {
+            bouncer.visible = true;
+            vx = -200;
+          }
+        }
+        
+        if(!((Map.Platform)frame).collides) {
+          return;
+        }
+        
+      }
+      
       switch(info.element[0]) {
         case 0: vy=min(0,vy); pos[1]=frame.absolute_y-100; vy=0; onground=true; break;
         //case 1: vx=max(0,vx); pos[0]+=5; break;

@@ -12,6 +12,8 @@ public class Frame extends ArrayList<Frame> {
   protected float mouse_x;
   protected float mouse_y;
   
+  protected boolean visible = true;
+  
   protected String text;
   protected int text_align_x;
   protected int text_align_y;
